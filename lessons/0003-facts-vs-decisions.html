@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0003 · Facts vs Decisions</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0003 · Facts vs Decisions</h1>
+  <p class="lead">单一目标：面对 grilling 中的一个问题，判断它应该由 AI 自查，还是由用户做决定。</p>
+
+  <nav>
+    <a href="0002-decision-frontier.html">上一课：Decision Frontier</a>
+    <a href="../reference/facts-vs-decisions.html">速查：Facts / Decisions</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>你能把事实问题交回 AI 调查，把真正的取舍问题留给用户；遇到“事实 + 决策”混合问题时，能先拆开再处理。</p>
+  </section>
+
+  <h2>1. 两种完全不同的问题</h2>
+  <p class="rule"><strong>Fact：环境中已经存在一个答案，AI 应该去发现它。<br>Decision：答案取决于目标、偏好、风险或授权，需要用户选择。</strong></p>
+
+  <div class="flow">Fact
+“当前 main 分支最后一次提交是什么？”
+→ 查 GitHub / git
+
+Decision
+“这次是否允许直接向 main 提交？”
+→ 用户决定</div>
+
+  <p>关键不是“AI 知不知道答案”，而是<strong>答案是否已经客观存在于环境里</strong>。如果能通过仓库、文件、代码、日志、工具或搜索得到，AI 不应该把调查工作转嫁给用户。</p>
+
+  <h2>2. 一个非常实用的判断法</h2>
+  <div class="flow">这个问题如果换一个人来查，
+在同一环境下会得到同一个答案吗？
+
+通常会 → Fact → AI 去查
+不一定 → Decision → 用户选择</div>
+
+  <h2>3. 最容易出错的是“混合问题”</h2>
+  <p>AI 经常把 fact 和 decision 粘在一句话里：</p>
+
+  <div class="flow">“现在项目有没有自动部署？如果没有，要不要加？”</div>
+
+  <p>这其实是两个问题：</p>
+  <div class="flow">① Fact：现在有没有自动部署？
+   → AI 自查
+
+② Decision：在已知现状后，要不要增加自动部署？
+   → 用户决定</div>
+
+  <p class="rule"><strong>不要让用户替 AI 查事实；也不要让 AI 偷偷替用户做取舍。</strong></p>
+
+  <h2>4. Fact 还没查完时怎么办？</h2>
+  <p>如果某个 decision 依赖一个尚未查明的 fact，这条分支暂时不能继续。但整个 grilling 不需要停住：其他不依赖这个 fact 的 frontier 问题仍然可以继续问。</p>
+
+  <div class="flow">Fact F1：现有系统是否支持回滚？  ← AI 调查中
+  └─ Decision D2：是否采用自动回滚？ ← 等 F1
+
+Decision D3：发布是否需要人工批准？ ← 与 F1 无关，可现在问</div>
+
+  <h2>5. Retrieval practice</h2>
+
+  <section class="quiz" data-quiz-answer="a" data-correct-feedback="正确。这是环境里已经存在的答案，AI 应自己查看配置或代码。" data-wrong-feedback="再想一次：这个答案是否已经客观存在于仓库或环境中？">
+    <strong>Q1. “当前项目使用哪个 CI 配置？”</strong>
+    <div class="choices">
+      <button data-choice="a">事实</button>
+      <button data-choice="b">决策</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b" data-correct-feedback="正确。这涉及产品约束和取舍，需要用户授权。" data-wrong-feedback="再想一次：代码能告诉你用户愿不愿意承担这个约束吗？">
+    <strong>Q2. “新功能是否必须支持离线运行？”</strong>
+    <div class="choices">
+      <button data-choice="a">事实</button>
+      <button data-choice="b">决策</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="a" data-correct-feedback="正确。先查现状，再把真正需要选择的部分交给用户。" data-wrong-feedback="混合问题要拆开：先解决客观事实，再进入依赖它的决策。">
+    <strong>Q3. “目前有没有自动部署；如果没有，要不要加？”第一步？</strong>
+    <div class="choices">
+      <button data-choice="a">先查</button>
+      <button data-choice="b">先问</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <h2>6. 一句话记忆</h2>
+  <p class="rule"><strong>事实由 AI 发现，决策由用户选择；混合问题先拆开，事实先行。</strong></p>
+
+  <h2>Primary source</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md">mattpocock/skills · grilling/SKILL.md</a> — “Finding facts is your job, never the user's; the decisions are the user's.”</p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果某个问题你拿不准是 fact 还是 decision，直接拿真实问题来拆；不要靠词面判断。</p>
+  </section>
+
+  <p class="mini">下一步：通过一个真实 Codex 场景的无提示迁移题后，再记录本课 learning record。</p>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
