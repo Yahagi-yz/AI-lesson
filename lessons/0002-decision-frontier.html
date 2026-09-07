@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0002 · Decision Frontier</title>
+  <link rel="stylesheet" href="../assets/course.css">
+  <link rel="stylesheet" href="../assets/frontier-quiz.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0002 · 找出 Decision Frontier</h1>
+  <p class="lead">单一目标：面对一棵尚未解决的 design tree，找出“这一轮现在能问”的全部问题。</p>
+
+  <nav>
+    <a href="../reference/grilling-frontier-map.html">速查：Decision Frontier</a>
+    <a href="0001-skill-vs-flow.html">上一课</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>你能识别哪些问题属于当前 frontier，并指出“依赖尚未回答问题的子问题”为什么必须进入下一轮。</p>
+  </section>
+
+  <h2>1. Design tree 不是问题清单</h2>
+  <p>在 grilling 中，设计问题之间存在依赖关系。某个决定会解锁后面的决定，因此它们形成一棵 <strong>design tree</strong>，而不是一张平铺的问题清单。</p>
+
+  <div class="flow">Q1：要不要自动推进？
+ └─ Q2：如果自动推进，用旧 worker 还是新 worker？
+     └─ Q4：如果复用 worker，超时规则怎么设？
+
+Q3：人工 Reviewer 未完成时，是否允许继续？</div>
+
+  <p>这里 Q2 依赖 Q1，Q4 又依赖 Q2；Q3 则是另一条独立分支。</p>
+
+  <h2>2. Frontier = 现在已经被解锁的问题</h2>
+  <p class="rule"><strong>Decision frontier 是所有“前置决策已经解决”的未决问题。</strong></p>
+
+  <p>判断时不要问“这些问题是不是都很重要”，而要问：</p>
+  <div class="flow">如果我现在问这个问题，
+是否需要偷偷假设另一个尚未回答的问题的答案？
+
+需要假设 → 不在当前 frontier
+不需要假设 → 在当前 frontier</div>
+
+  <h2>3. Round 1：选出完整 frontier</h2>
+  <div class="tree">
+    <div class="tree-node"><strong>Q1</strong> — 已完成 worker 是否自动触发下一 ticket？<span class="depends">前置：无</span></div>
+    <div class="tree-node"><strong>Q2</strong> — 若自动触发，复用原 worker 还是启动新 worker？<span class="depends">前置：Q1 = 自动触发</span></div>
+    <div class="tree-node"><strong>Q3</strong> — 人工 Reviewer 未完成时是否允许流水线继续？<span class="depends">前置：无</span></div>
+    <div class="tree-node"><strong>Q4</strong> — 若复用原 worker，它的超时与上下文规则是什么？<span class="depends">前置：Q2 = 复用原 worker</span></div>
+  </div>
+
+  <section class="frontier-picker" data-frontier-quiz data-correct-set="q1,q3" data-correct-feedback="正确。Round 1 的完整 frontier 是 Q1 + Q3；Q2 依赖 Q1，Q4 依赖 Q2。" data-wrong-feedback="还不对。不要按重要性选；只选那些无需假设任何未决前置答案的问题。">
+    <strong>Round 1：哪些问题属于当前 frontier？</strong>
+    <p class="mini">可多选。四个答案按钮长度完全一致。</p>
+    <div class="frontier-options">
+      <button type="button" data-frontier-choice="q1" aria-pressed="false">Q1</button>
+      <button type="button" data-frontier-choice="q2" aria-pressed="false">Q2</button>
+      <button type="button" data-frontier-choice="q3" aria-pressed="false">Q3</button>
+      <button type="button" data-frontier-choice="q4" aria-pressed="false">Q4</button>
+    </div>
+    <div class="frontier-actions">
+      <button type="button" data-frontier-check>检查 frontier</button>
+      <button type="button" data-frontier-reset>重置</button>
+    </div>
+    <div class="frontier-result"></div>
+  </section>
+
+  <h2>4. 用户回答后，要重新计算</h2>
+  <p>假设 Round 1 得到：</p>
+  <div class="flow">Q1 = 是，自动触发
+Q3 = 否，Reviewer 未完成就不能继续</div>
+
+  <p>这时 Q2 被解锁，但 Q4 仍然没有被解锁，因为 Q2 还没决定。</p>
+
+  <section class="frontier-picker" data-frontier-quiz data-correct-set="q2" data-correct-feedback="正确。Round 2 只有 Q2；Q4 仍依赖 Q2 的具体答案。" data-wrong-feedback="再看依赖边：Q1 已解决，因此 Q2 解锁；但 Q4 仍需要先知道 Q2 是否选择复用 worker。">
+    <strong>Round 2：新的 frontier 是什么？</strong>
+    <div class="frontier-options">
+      <button type="button" data-frontier-choice="q1" aria-pressed="false">Q1</button>
+      <button type="button" data-frontier-choice="q2" aria-pressed="false">Q2</button>
+      <button type="button" data-frontier-choice="q3" aria-pressed="false">Q3</button>
+      <button type="button" data-frontier-choice="q4" aria-pressed="false">Q4</button>
+    </div>
+    <div class="frontier-actions">
+      <button type="button" data-frontier-check>检查 frontier</button>
+      <button type="button" data-frontier-reset>重置</button>
+    </div>
+    <div class="frontier-result"></div>
+  </section>
+
+  <h2>5. 最常见的错误</h2>
+  <div class="card">
+    <strong>错误：</strong>
+    <p>AI 在同一轮同时问 Q1：“是否自动推进？”和 Q2：“自动推进时复用旧 worker 还是新 worker？”</p>
+    <p><strong>为什么错：</strong> Q2 的存在条件依赖 Q1。如果 Q1 最终答案是“不自动推进”，Q2 这个问题可能根本不需要问。</p>
+  </div>
+
+  <p class="rule"><strong>同一轮可以并行问独立分支；不能提前问依赖本轮尚未回答问题的后继分支。</strong></p>
+
+  <h2>Primary source</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md">mattpocock/skills · grilling/SKILL.md</a> — design tree、frontier、round 的官方定义。</p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果你觉得某个问题“虽然依赖另一个问题，但似乎也可以先问”，直接把那个例子拿出来。判断依赖边正是这一课要练的能力。</p>
+  </section>
+
+  <p class="mini">完成网页中的两个练习后，回到对话做一次无提示迁移题。通过后才写 learning record。</p>
+</main>
+<script src="../assets/frontier-quiz.js"></script>
+</body>
+</html>
