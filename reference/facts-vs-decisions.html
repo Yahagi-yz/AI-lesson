@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference · Facts vs Decisions</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Reference</div>
+  <h1>Facts vs Decisions</h1>
+  <p class="lead">Grilling 中最重要的责任边界之一。</p>
+
+  <p class="rule"><strong>Fact = AI 去发现。Decision = 用户来选择。</strong></p>
+
+  <h2>快速判断</h2>
+  <div class="flow">答案已经客观存在于环境里？
+├─ 是 → Fact → 查代码 / 仓库 / 文件 / 日志 / 工具 / 搜索
+└─ 否 → Decision → 需要目标、偏好、风险或授权 → 问用户</div>
+
+  <h2>常见类型</h2>
+  <div class="flow">“当前默认分支是什么？”           → Fact
+“是否允许直接提交 main？”          → Decision
+“现在有没有 CI；没有的话要不要加？” → Mixed
+                                      ├─ 先查 Fact
+                                      └─ 再问 Decision</div>
+
+  <h2>与 Decision Frontier 的组合</h2>
+  <div class="flow">Fact F1：AI 正在调查
+  └─ Decision D2：依赖 F1 → 暂停这条分支
+
+Decision D3：与 F1 无关 → 仍在 frontier，可现在问</div>
+
+  <h2>监督 AI 时看三种错误</h2>
+  <div class="card">
+    <p><strong>错误 1：把事实甩给用户。</strong><br>“你们仓库现在有没有测试？”——如果 AI 有仓库访问，就应该自己查。</p>
+    <p><strong>错误 2：替用户做决定。</strong><br>“我决定以后所有 ticket 都自动并行。”——这属于策略取舍，未经授权不能暗填。</p>
+    <p><strong>错误 3：把混合问题一起问。</strong><br>先查客观现状，再基于查到的事实提出真正的 decision。</p>
+  </div>
+
+  <p class="mini">Primary source: mattpocock/skills · productivity/grilling/SKILL.md</p>
+</main>
+</body>
+</html>
