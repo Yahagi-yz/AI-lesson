@@ -23,7 +23,7 @@
 
 - [x] **Lesson 0001 — Skill 与 Flow：先识别工程阶段**
   - Skill 是针对具体工程问题的独立能力。
-  - Flow 是多个 Skills 按工程阶段组合起来的工作路径。
+  - Flow 是多个 Skills 按工程阶段形成的整体工作路径。
   - 先识别阶段，再选择 Skill。
 
 ### Stage 1 — 对齐：在实现之前把问题问对
@@ -32,8 +32,8 @@
   - [x] **Lesson 0002：design tree / decision frontier**
   - [x] **Lesson 0003：facts vs decisions**
   - [x] **Lesson 0004：shared understanding / exit gate**
-- [ ] `grill-me`
-  - user-invoked orchestration
+- [x] `grill-me` — **mastered**
+  - [x] **Lesson 0005：user-invoked orchestration**
 - [ ] `domain-modeling`
   - ubiquitous language
   - glossary / scenario / edge case
@@ -103,8 +103,10 @@
 
 - 当前：**Stage 1 — Alignment**
 - 已掌握：**`grilling` primitive**
+- 已掌握：**`grill-me` user-invoked orchestration**
 - 已完成：**Lesson 0002 — Decision Frontier**
 - 已完成：**Lesson 0003 — Facts vs Decisions**
 - 已完成：**Lesson 0004 — Shared Understanding 与结束条件**
-- Learning record：`learning-records/0004-shared-understanding.md`
-- 下一课：**Lesson 0005 — `grill-me`：user-invoked orchestration**
+- 已完成：**Lesson 0005 — `grill-me`：user-invoked orchestration**
+- Latest learning record：`learning-records/0005-grill-me-orchestration.md`
+- 下一课：**Lesson 0006 — `domain-modeling`：ubiquitous language / glossary / scenario / edge case**
