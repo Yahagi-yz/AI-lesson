@@ -35,7 +35,7 @@
 - [x] `grill-me` — **mastered**
   - [x] **Lesson 0005：user-invoked orchestration**
 - [ ] `domain-modeling`
-  - ubiquitous language
+  - [ ] **Lesson 0006：ubiquitous language — 模糊/重载术语 → concrete scenario → canonical term**
   - glossary / scenario / edge case
 - [ ] `grill-with-docs`
   - grilling + domain model + durable docs
@@ -108,5 +108,6 @@
 - 已完成：**Lesson 0003 — Facts vs Decisions**
 - 已完成：**Lesson 0004 — Shared Understanding 与结束条件**
 - 已完成：**Lesson 0005 — `grill-me`：user-invoked orchestration**
+- 当前 Lesson：**Lesson 0006 — `domain-modeling`：ubiquitous language**
 - Latest learning record：`learning-records/0005-grill-me-orchestration.md`
-- 下一课：**Lesson 0006 — `domain-modeling`：ubiquitous language / glossary / scenario / edge case**
+- Lesson 0006 learning record：**pending transfer evidence**
