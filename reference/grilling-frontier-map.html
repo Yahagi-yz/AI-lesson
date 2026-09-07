@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference · Grilling Decision Frontier</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Reference · Stage 1</div>
+  <h1>Grilling · Decision Frontier 速查</h1>
+  <p class="lead">用于快速判断：这一轮 grill 到底应该问哪些问题。</p>
+
+  <nav>
+    <a href="../lessons/0002-decision-frontier.html">Lesson 0002</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <p class="rule"><strong>Decision frontier = 所有前置决策都已经解决，因此现在无需猜测就能提出的全部决策。</strong></p>
+
+  <h2>判断算法</h2>
+  <div class="flow">对每一个尚未解决的问题 Q：
+
+1. Q 有没有前置决策？
+   ├─ 没有 → Q 在 frontier
+   └─ 有
+       ↓
+2. 所有前置决策是否已经 settled？
+   ├─ 是 → Q 在 frontier
+   └─ 否 → Q 必须等待
+
+最后：
+把所有满足条件的问题一次性组成这一轮 frontier。</div>
+
+  <h2>最容易犯的错</h2>
+  <div class="card">
+    <strong>把父问题和依赖它的子问题放在同一轮。</strong>
+    <p>如果 Q2 的答案需要先知道 Q1 的答案，那么 Q1 尚未回答时，Q2 不属于当前 frontier。即使 AI 能“猜一个大概”，也必须后置。</p>
+  </div>
+
+  <h2>Round 变化</h2>
+  <div class="flow">Round 1 frontier
+Q1   Q3
+ ↓    ↓
+用户回答
+ ↓
+重新计算整棵 design tree
+ ↓
+Round 2 frontier
+Q2
+ ↓
+用户回答
+ ↓
+Round 3 frontier
+Q4</div>
+
+  <h2>Primary source</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md">mattpocock/skills · grilling/SKILL.md</a></p>
+
+  <section class="card">
+    <strong>一句话记忆</strong>
+    <p>不是“还有哪些问题可以想到”，而是“在不猜任何未决答案的前提下，现在有哪些问题已经被解锁”。</p>
+  </section>
+</main>
+</body>
+</html>
