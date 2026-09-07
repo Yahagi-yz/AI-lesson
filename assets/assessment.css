@@ -1,0 +1,9 @@
+.assessment-grid { display: grid; gap: 14px; margin: 1.4rem 0; }
+.assessment-item { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.assessment-item label { display: block; font-weight: 700; margin-bottom: 8px; }
+.assessment-item textarea { width: 100%; min-height: 110px; resize: vertical; border: 1px solid #cfcfca; border-radius: 10px; padding: 12px 13px; background: var(--paper); color: var(--ink); font: 500 14px/1.55 ui-sans-serif, system-ui, sans-serif; }
+.assessment-item textarea:focus { outline: 2px solid color-mix(in srgb, var(--accent) 35%, transparent); border-color: var(--accent); }
+.assessment-toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 1rem 0; }
+.assessment-status { font: 600 13px/1.4 ui-sans-serif, system-ui, sans-serif; color: var(--muted); }
+.assessment-status.complete { color: var(--ok); }
+.assessment-note { border-left: 4px solid var(--line); padding-left: 16px; color: var(--muted); }
