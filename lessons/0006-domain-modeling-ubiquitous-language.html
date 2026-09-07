@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0006 · Domain Modeling</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0006 · <code>domain-modeling</code>：把模糊词磨成 Ubiquitous Language</h1>
+  <p class="lead">单一目标：当项目里的“词”开始含义不一致时，能识别这是 domain-modeling 问题，并用 concrete scenario / edge case 把它收敛成 canonical term。</p>
+
+  <nav>
+    <a href="../reference/domain-modeling-language-loop.html">速查：Language Loop</a>
+    <a href="0005-grill-me-user-invoked-orchestration.html">上一课</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>你能发现模糊、重载或冲突术语；不替用户暗选含义；用具体场景逼清边界；术语确定后知道什么可以写进 <code>CONTEXT.md</code>。</p>
+  </section>
+
+  <h2>1. 什么时候“词”本身就是工程问题？</h2>
+  <p>假设项目里到处都有 <code>account</code>：</p>
+
+  <div class="flow">产品说 account = 付费客户公司
+登录代码说 account = 登录用户
+账单代码说 account = 结算对象</div>
+
+  <p>这时问题不是“选哪个变量名好看”，而是团队对领域概念没有共享边界。官方 <code>domain-modeling</code> 的职责就是主动挑战这种模糊、重载或与既有 glossary 冲突的语言。</p>
+
+  <p class="rule"><strong>Ubiquitous language 不是术语装饰，而是：同一个 canonical term 在团队、对话、代码和文档里稳定指向同一个领域概念。</strong></p>
+
+  <h2>2. 不要替用户偷偷选一个含义</h2>
+  <p>AI 最危险的做法是看到 <code>account</code> 后自己猜：“大概就是用户吧。”正确动作是把冲突显式化，并提出更精确的候选：</p>
+
+  <div class="flow">“你这里说 account，
+是指 Customer（付费主体），
+还是 User（登录并操作系统的人）？
+这两个概念目前混在一起了。”</div>
+
+  <p>领域模型的价值不在“高级名词”，而在消灭这种静默歧义。</p>
+
+  <h2>3. Concrete scenario 是边界显微镜</h2>
+  <p>只问“Customer 和 User 有什么区别？”容易得到空泛定义。更有效的是制造一个具体场景：</p>
+
+  <div class="flow">场景 A：一家公司买了服务，但有 3 个员工登录。
+→ 这是 1 个 Customer + 3 个 Users？
+
+场景 B：一个员工离职，但公司订阅仍然存在。
+→ 删除 User 是否应该影响 Customer？
+
+场景 C：同一个 User 能否属于两个 Customers？
+→ 如果可以，关系边界又是什么？</div>
+
+  <p>这些 edge cases 会迫使模型从“听起来差不多”走向“边界真的说得清楚”。</p>
+
+  <h2>4. 代码和语言冲突时，不能静默选边</h2>
+  <p>如果用户说“Order 可以部分取消”，但代码只支持整单取消，domain-modeling 应把矛盾摆出来，而不是默认用户对，也不是默认代码对。</p>
+
+  <div class="flow">用户语言：partial cancellation exists
+代码事实：cancel(orderId) cancels whole Order
+        ↓
+明确指出冲突
+        ↓
+用具体场景确认真正领域规则
+        ↓
+再决定语言或代码哪边需要改变</div>
+
+  <h2>5. 术语一旦确定，就立即写入 glossary</h2>
+  <p><code>CONTEXT.md</code> 的角色非常窄：<strong>glossary and nothing else</strong>。它定义“一个东西是什么”，而不是“代码怎么实现”。</p>
+
+  <div class="flow">**Customer**:
+A person or organization that buys the service.
+_Avoid_: account, client
+
+**User**:
+An authenticated person who operates within a Customer.
+_Avoid_: account, login</div>
+
+  <p>下面这种内容则不应该进入 glossary：</p>
+
+  <div class="flow">User 存在 PostgreSQL users 表
+主键使用 UUID
+登录接口走 /api/v2/auth
+下一步要把缓存迁到 Redis</div>
+
+  <p class="rule"><strong>CONTEXT.md 定义领域概念；spec / implementation details / scratch notes 不属于这里。</strong></p>
+
+  <h2>6. Retrieval practice</h2>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。这里真正的问题是同一个领域词承担了多个概念，应先做 domain-modeling。"
+    data-wrong-feedback="先判断冲突发生在哪一层：是模块结构，还是词本身的含义？">
+    <strong>Q1. “account”在产品文档里指公司，在认证代码里指登录用户。当前最直接的问题？</strong>
+    <div class="choices">
+      <button data-choice="a">领域语言冲突</button>
+      <button data-choice="b">模块接口太浅</button>
+      <button data-choice="c">运行性能太差</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。具体场景能测试概念关系的边界，而不是继续空谈定义。"
+    data-wrong-feedback="当两个词看似有区别但边界模糊时，最有力的是让它们进入一个具体场景。">
+    <strong>Q2. Customer 和 User 的关系仍然说不清。domain-modeling 下一步最好做什么？</strong>
+    <div class="choices">
+      <button data-choice="a">直接选一个词</button>
+      <button data-choice="b">构造具体场景</button>
+      <button data-choice="c">开始写数据库表</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="c"
+    data-correct-feedback="正确。语言和代码矛盾本身就是需要被显式解决的证据，不能静默选边。"
+    data-wrong-feedback="domain-modeling 会 cross-reference code；发现矛盾时要把它抬到桌面上。">
+    <strong>Q3. 用户说支持部分取消，但代码只会整单取消。正确动作？</strong>
+    <div class="choices">
+      <button data-choice="a">默认用户正确</button>
+      <button data-choice="b">默认代码正确</button>
+      <button data-choice="c">显式提出冲突</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。CONTEXT.md 是领域 glossary：定义项目特有概念及要避免的同义词。"
+    data-wrong-feedback="问自己：这段内容是在定义‘它是什么’，还是在记录‘代码怎么做’？">
+    <strong>Q4. 哪个内容最适合写进 CONTEXT.md？</strong>
+    <div class="choices">
+      <button data-choice="a">Customer 的领域定义</button>
+      <button data-choice="b">Redis 缓存迁移计划</button>
+      <button data-choice="c">Postgres 表结构细节</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。只读取已有术语是在消费模型；domain-modeling 指主动改变或澄清模型。"
+    data-wrong-feedback="官方特别区分 active discipline 与 merely reading the glossary。">
+    <strong>Q5. AI 只是读取已有 CONTEXT.md 来沿用项目词汇，这本身算 domain-modeling 吗？</strong>
+    <div class="choices">
+      <button data-choice="a">算，已经建模</button>
+      <button data-choice="b">不算，只是读取</button>
+      <button data-choice="c">算，只要有文件</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <h2>7. 一句话记忆</h2>
+  <p class="rule"><strong>词有歧义 → 不猜 → 用 scenario 压边界 → 与代码/现有 glossary 核对 → 定 canonical term → 立即写入 glossary。</strong></p>
+
+  <p class="mini">ADR 也是 domain-modeling 的一部分，但它有另一套更高的写入门槛；本课先只掌握“语言收敛”这条回路。</p>
+
+  <h2>Primary sources</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md">mattpocock/skills · domain-modeling/SKILL.md</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/docs/engineering/domain-modeling.md">mattpocock/skills · domain-modeling docs</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/CONTEXT-FORMAT.md">mattpocock/skills · CONTEXT-FORMAT.md</a></p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果你拿不准一个真实项目里的词是不是“领域概念”，把那个词和两三个使用场景带回来，我们直接做边界测试。</p>
+  </section>
+
+  <p class="mini">完成网页练习后，回到对话做一题新的无提示迁移。通过前不会写 Lesson 0006 learning record，也不会把 domain-modeling 标为 mastered。</p>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
