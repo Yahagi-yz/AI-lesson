@@ -29,6 +29,12 @@
 - [`ADR format`](https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/ADR-FORMAT.md)
   ADR 的 canonical 格式与三项写入门槛：hard to reverse、surprising without context、real trade-off。Use for: Lesson 0007 判断一个 decision 是否真正值得持久化为 ADR。
 
+- [`grill-with-docs` — SKILL.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md)
+  `grill-with-docs` 的正式 orchestration 定义：user-invoked，并要求分别加载 `grilling` 与 `domain-modeling`。Use for: Lesson 0008 监督组合是否完整加载。
+
+- [`grill-with-docs` — docs](https://github.com/mattpocock/skills/blob/main/docs/engineering/grill-with-docs.md)
+  stateful alignment 的适用边界、paper trail、partial-loading failure、与 `grill-me` / `wayfinder` / `to-spec` 的衔接。Use for: Lesson 0008 与 Stage 1 路由。
+
 - [`ask-matt` — SKILL.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md)
   官方 Skill / Flow 路由器。Use for: 判断一个真实任务应走哪条工程路径。
 
