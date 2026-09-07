@@ -34,9 +34,9 @@
   - [x] **Lesson 0004：shared understanding / exit gate**
 - [x] `grill-me` — **mastered**
   - [x] **Lesson 0005：user-invoked orchestration**
-- [ ] `domain-modeling`
+- [x] `domain-modeling` — **mastered**
   - [x] **Lesson 0006：ubiquitous language — 模糊/重载术语 → concrete scenario → canonical term**
-  - [ ] **Lesson 0007：CONTEXT.md vs ADR — two artifacts, two bars** ← current
+  - [x] **Lesson 0007：CONTEXT.md vs ADR — two artifacts, two bars**
   - glossary / scenario / edge case / ADR discipline
 - [ ] `grill-with-docs`
   - grilling + domain model + durable docs
@@ -105,12 +105,12 @@
 - 当前：**Stage 1 — Alignment**
 - 已掌握：**`grilling` primitive**
 - 已掌握：**`grill-me` user-invoked orchestration**
+- 已掌握：**`domain-modeling`**
 - 已完成：**Lesson 0002 — Decision Frontier**
 - 已完成：**Lesson 0003 — Facts vs Decisions**
 - 已完成：**Lesson 0004 — Shared Understanding 与结束条件**
 - 已完成：**Lesson 0005 — `grill-me`：user-invoked orchestration**
 - 已完成：**Lesson 0006 — `domain-modeling`：ubiquitous language**
-- 当前 Lesson：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR**
-- Latest learning record：`learning-records/0006-domain-language-boundaries.md`
-- Lesson 0007 learning record：**pending transfer evidence**
-- `domain-modeling` 整体状态：**in progress**
+- 已完成：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR**
+- Latest learning record：`learning-records/0007-context-vs-adr.md`
+- 下一课：**Lesson 0008 — `grill-with-docs`：grilling + domain-modeling + durable docs**
