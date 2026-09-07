@@ -18,13 +18,13 @@
   design tree、decision frontier、facts vs decisions 与 shared understanding 的原始定义。Use for: Stage 1 核心课程。
 
 - [`domain-modeling` — SKILL.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md)
-  主动构建和收敛领域模型：挑战模糊/冲突术语、用具体场景压边界、与代码交叉核对，并在术语确定时即时更新 `CONTEXT.md`。Use for: Lesson 0006+。
+  主动维护领域模型的正式规则：挑战术语、scenario/edge case、与代码交叉核对、inline 更新 `CONTEXT.md`，以及 ADR 的三项门槛。Use for: Lessons 0006–0007。
 
 - [`domain-modeling` — docs](https://github.com/mattpocock/skills/blob/main/docs/engineering/domain-modeling.md)
-  官方使用边界、常见失败模式、`CONTEXT.md` / ADR 两种 artifact 的不同写入门槛。Use for: domain-modeling 路由与实践。
+  `domain-modeling` 的详细边界、常见失败模式、two artifacts / two bars，以及与其他 Skills 的路由关系。Use for: domain-modeling 深学与实践边界。
 
 - [`CONTEXT.md` format](https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/CONTEXT-FORMAT.md)
-  ubiquitous language glossary 的正式格式：canonical term、1–2 句定义、`_Avoid_` 同义词，以及只写领域概念、不写实现细节的规则。Use for: glossary 落盘。
+  glossary 的 canonical 格式与内容边界。Use for: 判断领域定义、关系、Avoid 同义词与 implementation detail 的边界。
 
 - [`ask-matt` — SKILL.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md)
   官方 Skill / Flow 路由器。Use for: 判断一个真实任务应走哪条工程路径。
