@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0009 · Stage 1 Alignment 综合验收</title>
+  <link rel="stylesheet" href="../assets/course.css">
+  <link rel="stylesheet" href="../assets/assessment.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1 Assessment</div>
+  <h1>Lesson 0009 · Alignment 综合验收</h1>
+  <p class="lead">这不是新知识讲解。你会看到一个新的真实工程场景；请独立判断工程阶段、路由、当前 frontier、facts vs decisions、domain language、durable docs 边界，以及 AI 的流程错误。</p>
+
+  <nav>
+    <a href="0008-grill-with-docs-orchestration.html">上一课</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+    <a href="../MISSION.md">Mission</a>
+  </nav>
+
+  <section class="card">
+    <strong>验收规则</strong>
+    <p>页面不会给出 Skill / Flow 选项，也不会嵌入标准答案。先独立完成所有判断，再复制答案回到 ChatGPT 对话提交；老师在对话中即时批改。只有通过无提示迁移后，才创建 learning record。</p>
+  </section>
+
+  <h2>真实工程场景：失败分析任务的“恢复”</h2>
+  <p>你维护一个已有仓库 <code>bioflow-runner</code>，用于执行内部生信分析流程。产品提出：</p>
+
+  <div class="flow">“失败的分析流程要支持从最后一个成功步骤继续。
+用户看到的仍然应该是同一个分析任务，
+但审计历史不能乱。
+先把方案问清楚，不要开始写实现代码。”</div>
+
+  <h2>AI 已经从仓库查到的状态</h2>
+  <section class="card">
+    <p><strong><code>CONTEXT.md</code></strong></p>
+    <p><code>Analysis Task</code>：用户提交的一项逻辑分析工作。</p>
+    <p><code>Run</code>：某个 Analysis Task 的一次具体执行；一个 Task 可以有多个 Runs。</p>
+    <p><code>Step Result</code>：成功 Step 产生的不可变结果。</p>
+  </section>
+
+  <div class="flow">代码 / 数据库
+- retry_run()：失败后创建一个新的 Run，并从头计算全部 steps
+- runs.id：不可变主键
+- step_results：归属于具体 run_id
+- 当前没有 resume endpoint
+
+已有 ADR
+- Run identity 保持不可变，用于 audit / replay
+- 当时明确放弃“失败后继续修改同一个 Run”
+- 若推翻该决定，会影响 scheduler、audit、replay 与数据迁移
+
+当前语言
+- UI 写 “Retry”
+- SOP 写 “rerun”
+- 产品 brief 写 “resume”
+- 团队口头上三者经常混用</div>
+
+  <p>还有两项仓库事实尚未查完：</p>
+  <div class="flow">F1. 新 Run 是否能安全复用旧 Run 的 Step Result，
+    包括 provenance / checksum / artifact ownership 约束？
+
+F2. 用户点击“恢复”时，输入数据、参数或流程版本
+    是否可能已经变化？现有代码如何处理这些变化？</div>
+
+  <h2>AI 当前准备这样做</h2>
+  <div class="flow">A. 先把 CONTEXT.md 改成：
+   “Resume = 在原 Run 上从失败 Step 继续执行。”
+
+B. 问用户：
+   “数据库现在能不能给 failed Run 继续追加 step？”
+
+C. 第一轮同时问：
+   Q1. Resume 应保留原 Run ID，还是创建新 Run？
+   Q2. 如果创建新 Run，是否复用旧 Run 的成功 Step Result？
+   Q3. 如果输入或参数变化，哪些旧 Step Result 还能复用？
+   Q4. Cancelled Run 是否也允许恢复？
+   Q5. UI 按钮最终叫 Resume、Retry 还是 Rerun？
+
+D. 因为已有 retry_run()，AI 先创建一个 ADR：
+   “Resume 采用新 Run。”
+
+E. 同时开始写 resume endpoint 和数据库 migration，
+   等用户回答后再补细节。</div>
+
+  <h2>你的验收回答</h2>
+  <p class="assessment-note">不要只给结论。尽量说明“为什么现在能问 / 为什么必须后置 / 为什么属于 fact 或 decision / 为什么写或不写 durable docs”。</p>
+
+  <div class="assessment-grid">
+    <div class="assessment-item">
+      <label for="a1">1. 当前工程阶段</label>
+      <textarea id="a1" data-assessment-field="1. 当前工程阶段" placeholder="判断当前处于什么阶段，以及为什么现在还不应进入实现。"></textarea>
+    </div>
+
+    <div class="assessment-item">
+      <label for="a2">2. 路由</label>
+      <textarea id="a2" data-assessment-field="2. 路由" placeholder="写出你会选择的 Skill / Flow，并说明调用边界；不要只写名称。"></textarea>
+    </div>
+
+    <div class="assessment-item">
+      <label for="a3">3. 当前 decision frontier</label>
+      <textarea id="a3" data-assessment-field="3. 当前 decision frontier" placeholder="从 Q1–Q5 中指出当前这一轮真正可以问的 decision；哪些必须后置，并写依赖原因。"></textarea>
+    </div>
+
+    <div class="assessment-item">
+      <label for="a4">4. Facts：AI 应自己查什么</label>
+      <textarea id="a4" data-assessment-field="4. Facts：AI 应自己查什么" placeholder="指出哪些问题不该甩给用户；包括尚未完成的仓库调查。"></textarea>
+    </div>
+
+    <div class="assessment-item">
+      <label for="a5">5. Decisions：真正需要用户决定什么</label>
+      <textarea id="a5" data-assessment-field="5. Decisions：真正需要用户决定什么" placeholder="列出当前或后续真正属于目标、语义、风险或授权取舍的 decisions。"></textarea>
+    </div>
+
+    <div class="assessment-item">
+      <label for="a6">6. Domain language + CONTEXT.md / ADR 边界</label>
+      <textarea id="a6" data-assessment-field="6. Domain language + CONTEXT.md / ADR 边界" placeholder="指出哪些词需要澄清；术语确定后什么进 CONTEXT.md；什么决定才可能进 ADR；什么两边都不进。"></textarea>
+    </div>
+
+    <div class="assessment-item">
+      <label for="a7">7. AI 的流程错误与正确顺序</label>
+      <textarea id="a7" data-assessment-field="7. AI 的流程错误与正确顺序" placeholder="审计 A–E：指出错误，并给出你认为正确的下一步顺序，直到 shared understanding gate。"></textarea>
+    </div>
+  </div>
+
+  <div class="assessment-toolbar">
+    <button type="button" data-copy-assessment>复制完整答案</button>
+    <span class="assessment-status" data-assessment-status></span>
+  </div>
+
+  <section class="card">
+    <strong>完成门槛</strong>
+    <p>网页填写完成不等于通过。请把答案粘贴回当前 ChatGPT 对话；只有在这个新场景中独立完成路由与流程审计，才算 Stage 1 无提示迁移验收通过。</p>
+  </section>
+
+  <h2>Primary source</h2>
+  <p><a href="../CURRICULUM.md">当前课程地图与 Stage 1 验收定义</a></p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>提交答案后，我会只针对你的判断给即时反馈；在你完成首次作答前，不会提前给出标准路由或标准 frontier。</p>
+  </section>
+</main>
+<script src="../assets/assessment.js"></script>
+</body>
+</html>
