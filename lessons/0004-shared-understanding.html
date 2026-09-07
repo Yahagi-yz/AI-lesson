@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0004 · Shared Understanding</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0004 · Shared Understanding 与结束条件</h1>
+  <p class="lead">单一目标：判断一次 grilling 什么时候真的可以结束，以及为什么 frontier 清空后仍不能直接行动。</p>
+
+  <nav>
+    <a href="../reference/grilling-end-gate.html">速查：Grilling Exit Gate</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>你能区分“继续 grill”“总结并等待确认”“已可离开 grilling”三种状态。</p>
+  </section>
+
+  <h2>1. Frontier 清空只是第一个 gate</h2>
+  <p>Matt 的规则不是“没问题可问了就开始做”，而是：frontier 为空意味着 design tree 已经走完，每个分支都访问过，没有留下静默假设。</p>
+
+  <div class="flow">Gate 1：Design tree exhausted
+
+frontier = ∅
+所有分支已访问
+没有静默假设
+        ↓
+仍然不能行动</div>
+
+  <h2>2. 第二个 gate：用户确认 shared understanding</h2>
+  <p>当 frontier 为空，AI 应该把已经形成的共同理解压缩成清晰摘要，让用户检查自己是否真的同意。</p>
+
+  <div class="flow">Gate 1 通过
+   ↓
+AI 总结 shared understanding
+   ↓
+用户明确确认？
+ ├─ No / 有修正 → 重新打开 design tree
+ └─ Yes → Grilling 结束</div>
+
+  <p class="rule"><strong>Frontier empty ≠ permission to act.<br>User confirms shared understanding → 才能离开 grilling。</strong></p>
+
+  <h2>3. 用户一旦修正，树会重新长出来</h2>
+  <p>假设所有问题都问完了，AI 总结：“失败后自动重试 3 次。”用户说：“等等，生产环境不能自动重试。”这不是简单改一句摘要，而是产生了新的 decision branch。</p>
+
+  <div class="flow">原 frontier = ∅
+   ↓
+用户修正 shared understanding
+   ↓
+新 decision 出现
+   ↓
+重新计算 frontier
+   ↓
+继续 grilling</div>
+
+  <h2>4. Retrieval practice</h2>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。只要还有未决分支，frontier 就不为空，必须继续 grill。"
+    data-wrong-feedback="先检查 design tree：还有未解决 decision 时不能进入总结确认。">
+    <strong>Q1. 还有一个依赖已满足的 decision 没问。现在？</strong>
+    <div class="choices">
+      <button data-choice="a">继续追问</button>
+      <button data-choice="b">总结确认</button>
+      <button data-choice="c">开始实现</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。frontier 已空，但还缺用户对 shared understanding 的明确确认。"
+    data-wrong-feedback="frontier 空只是第一个 gate；确认前不能行动。">
+    <strong>Q2. 所有分支已解决，没有静默假设，但用户还没确认。现在？</strong>
+    <div class="choices">
+      <button data-choice="a">继续追问</button>
+      <button data-choice="b">总结确认</button>
+      <button data-choice="c">开始实现</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。用户的修正意味着 design tree 被重新打开，需要重新计算 frontier。"
+    data-wrong-feedback="用户修正不是形式问题，它可能改变后续 decisions，因此要重新计算树。">
+    <strong>Q3. 用户在确认摘要时新增了一个约束。现在？</strong>
+    <div class="choices">
+      <button data-choice="a">重新开树</button>
+      <button data-choice="b">忽略修正</button>
+      <button data-choice="c">直接实现</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <h2>5. 一句话记忆</h2>
+  <p class="rule"><strong>Grilling 的结束不是“AI 没问题了”，而是“树已穷尽 + 用户确认共同理解”。</strong></p>
+
+  <h2>Primary source</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md">mattpocock/skills · grilling/SKILL.md</a></p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果“frontier empty”“shared understanding”“允许行动”三者的关系还有模糊，直接指出具体场景。</p>
+  </section>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
