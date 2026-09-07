@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0005 · grill-me: User-Invoked Orchestration</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0005 · <code>grill-me</code>: User-Invoked Orchestration</h1>
+  <p class="lead">单一目标：理解 <code>grill-me</code> 为什么不是另一套 grilling 算法，而是用户主动进入 <code>grilling</code> primitive 的编排入口。</p>
+
+  <nav>
+    <a href="../CURRICULUM.md">课程地图</a>
+    <a href="0004-shared-understanding.html">上一课</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>看到真实任务时，你能判断：是在调用 <code>grill-me</code> 这个 user-invoked front door，还是在谈底层 <code>grilling</code> primitive，并能解释为什么二者不能混为一谈。</p>
+  </section>
+
+  <h2>1. 两层结构：入口 ≠ 算法</h2>
+  <p>官方 <code>grill-me/SKILL.md</code> 的核心非常短：它禁止模型自行调用，然后把真正的工作交给 <code>grilling</code>。</p>
+
+  <div class="flow">用户明确调用 /grill-me
+        ↓
+grill-me（user-invoked orchestration）
+        ↓
+调用 grilling Skill
+        ↓
+design tree / frontier / facts vs decisions / shared understanding</div>
+
+  <p class="rule"><strong><code>grill-me</code> 决定“怎么进入”；<code>grilling</code> 决定“进入后怎么做”。</strong></p>
+
+  <h2>2. 为什么要单独做一个 user-invoked front door？</h2>
+  <p><code>grill-me</code> 带有 <code>disable-model-invocation: true</code>。这意味着它是用户显式选择的工作模式，而不是 AI 看见任何模糊想法就擅自把用户拖进一场长 grilling。</p>
+
+  <div class="flow">用户有一个模糊但值得认真推敲的想法
+        ↓
+用户主动选择 /grill-me
+        ↓
+授权进入“持续追问直到 shared understanding”的模式</div>
+
+  <p>因此，<strong>user-invoked</strong> 不只是命令形式，而是一个控制边界：是否进入这种高强度对齐过程，由用户决定。</p>
+
+  <h2>3. Stateless 是它的第二个边界</h2>
+  <p>官方文档把 <code>grill-me</code> 定义为 stateless：不要求 repo，不写文件，也不维护工作区状态。它可以用于软件、产品、写作、商业决策等任何主题。</p>
+
+  <div class="flow">只有想法 / 对话上下文
+        ↓
+/grill-me
+        ↓
+把想法磨成清晰 decisions
+        ↓
+不自动写 CONTEXT.md / ADR / repo 状态</div>
+
+  <p>如果问题已经绑定代码仓库，而且希望把对齐结果持续写回仓库，那是后续 <code>grill-with-docs</code> 的边界，不是 <code>grill-me</code> 自己偷偷升级。</p>
+
+  <h2>4. Retrieval practice</h2>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。grill-me 是用户主动进入的 front door；真正的采访机制来自 grilling。"
+    data-wrong-feedback="区分入口层与 primitive：谁决定怎么进入，谁决定进入后怎么工作？">
+    <strong>Q1. 用户输入 /grill-me 后，真正执行 design tree / frontier 逻辑的是谁？</strong>
+    <div class="choices">
+      <button data-choice="a">grill-me 自己</button>
+      <button data-choice="b">grilling primitive</button>
+      <button data-choice="c">to-spec flow</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。disable-model-invocation 把是否进入这一模式的控制权留给用户。"
+    data-wrong-feedback="这里考的是调用权限，而不是 grilling 内部如何提问。">
+    <strong>Q2. 为什么 grill-me 要禁止模型自行调用？</strong>
+    <div class="choices">
+      <button data-choice="a">保留用户授权</button>
+      <button data-choice="b">减少问题数量</button>
+      <button data-choice="c">强制写入仓库</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="c"
+    data-correct-feedback="正确。需要读取代码库并持久化对齐结果时，应进入 grill-with-docs 的边界。"
+    data-wrong-feedback="grill-me 是 stateless；需要 repo 状态和 durable docs 时已经越过它的边界。">
+    <strong>Q3. 已有代码仓库，而且要求把领域词汇和关键决策持续写回 repo。优先路由到？</strong>
+    <div class="choices">
+      <button data-choice="a">grill-me</button>
+      <button data-choice="b">grilling</button>
+      <button data-choice="c">grill-with-docs</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <h2>5. 一句话记忆</h2>
+  <p class="rule"><strong><code>grill-me</code> = 用户主动按下“开始 grilling”的按钮；按钮后面跑的仍然是 <code>grilling</code>。</strong></p>
+
+  <h2>Primary sources</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md">mattpocock/skills · grill-me/SKILL.md</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/docs/productivity/grill-me.md">mattpocock/skills · grill-me docs</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md">mattpocock/skills · grilling/SKILL.md</a></p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果“user-invoked”“orchestration”“primitive”“stateless”之间还有模糊，直接给一个真实 Codex 场景，我们按调用链拆开。</p>
+  </section>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
