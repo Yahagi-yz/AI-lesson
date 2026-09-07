@@ -17,3 +17,4 @@
 - 单选/判断/分类等即时反馈练习优先复用 `assets/quiz.js`；需要“选择完整 frontier/多项集合”时优先复用 `assets/frontier-quiz.css` + `assets/frontier-quiz.js`。现有 `assets/` 当前包括 `course.css`、`quiz.js`、`frontier-quiz.css`、`frontier-quiz.js`。
 - 交互题型应服务于本课单一能力：能用已有组件表达就不要新建组件；确实需要新交互时，先新增**可复用组件**到 `assets/`，并让 canonical Lesson 与当前会话单文件预览保持同样的交互逻辑和视觉语言。
 - 交互参考样例：`lessons/0002-decision-frontier.html`（多选 frontier 练习）、`lessons/0003-facts-vs-decisions.html`（Fact/Decision 即时分类）、`lessons/0004-shared-understanding.html`（状态/退出门槛判断）。后续课程应把这些作为交互形式参考，而不是每次重新设计一套。
+- Lesson 0006 已证明：用户能通过 concrete scenario 将重载术语拆成 canonical concepts，并能区分 domain model 中的概念/关系与 implementation detail；但 `domain-modeling` 整体尚未 mastered，下一步继续学习 CONTEXT.md 与 ADR 的不同写入门槛。
