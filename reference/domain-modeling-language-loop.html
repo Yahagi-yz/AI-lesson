@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference · Domain Modeling Language Loop</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Reference</div>
+  <h1>Domain Modeling · Language Loop</h1>
+  <p class="lead">当“词的含义”本身成为工程问题时，用这条最短回路把模糊语言收敛成项目的 ubiquitous language。</p>
+
+  <nav>
+    <a href="../lessons/0006-domain-modeling-ubiquitous-language.html">Lesson 0006</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <div class="flow">发现模糊 / 重载 / 冲突术语
+        ↓
+不要替用户偷偷选一个含义
+        ↓
+提出精确候选词
+        ↓
+用 concrete scenario / edge case 压边界
+        ↓
+必要时与代码和已有 CONTEXT.md 交叉核对
+        ↓
+确定 canonical term
+        ↓
+立即写入 CONTEXT.md glossary</div>
+
+  <h2>什么时候是 domain-modeling？</h2>
+  <section class="card">
+    <p><strong>是：</strong>“account”同时指 Customer 和 User；“cancel”有人指整单取消，有人指取消一个 item。</p>
+    <p><strong>不是：</strong>只是读取现有 CONTEXT.md；模块接口怎么切；某个 bug 为什么发生。</p>
+  </section>
+
+  <h2>CONTEXT.md 只放什么？</h2>
+  <p class="rule"><strong>定义“这个领域概念是什么”，而不是“代码怎么实现它”。</strong></p>
+
+  <div class="flow">**Customer**:
+A person or organization that buys the service.
+_Avoid_: account, client
+
+**User**:
+An authenticated person who operates within a Customer.
+_Avoid_: account, login</div>
+
+  <p>不要写数据库表、框架、接口实现、任务计划、一般编程概念。术语定义保持一到两句，并把被淘汰的同义词放在 <code>_Avoid_</code>。</p>
+
+  <h2>一句话判断</h2>
+  <p class="rule"><strong>如果冲突是“我们说的这个词到底指什么”，先做 domain-modeling；如果冲突是“模块应该怎么长”，那是别的设计问题。</strong></p>
+
+  <h2>Primary sources</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md">domain-modeling/SKILL.md</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/CONTEXT-FORMAT.md">CONTEXT-FORMAT.md</a></p>
+</main>
+</body>
+</html>
