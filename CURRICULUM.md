@@ -39,6 +39,7 @@
   - [x] **Lesson 0007：CONTEXT.md vs ADR — two artifacts, two bars**
   - glossary / scenario / edge case / ADR discipline
 - [ ] `grill-with-docs`
+  - [ ] **Lesson 0008：stateful orchestration — grilling + domain-modeling + paper trail** ← current
   - grilling + domain model + durable docs
 
 **阶段验收**：给出一个真实项目状态，能够判断哪些问题现在能问、哪些必须后置、哪些事实应由 AI 自查。
@@ -112,5 +113,7 @@
 - 已完成：**Lesson 0005 — `grill-me`：user-invoked orchestration**
 - 已完成：**Lesson 0006 — `domain-modeling`：ubiquitous language**
 - 已完成：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR**
+- 当前 Lesson：**Lesson 0008 — `grill-with-docs`：stateful orchestration**
 - Latest learning record：`learning-records/0007-context-vs-adr.md`
-- 下一课：**Lesson 0008 — `grill-with-docs`：grilling + domain-modeling + durable docs**
+- Lesson 0008 learning record：**pending transfer evidence**
+- `grill-with-docs` 整体状态：**in progress**
