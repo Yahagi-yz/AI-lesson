@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference · grill-with-docs Orchestration Map</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Reference</div>
+  <h1><code>grill-with-docs</code> Orchestration Map</h1>
+  <p class="lead">用于快速监督：入口是否正确、两个依赖是否都加载、哪些结果真正落盘。</p>
+
+  <h2>调用链</h2>
+  <div class="flow">用户主动 /grill-with-docs
+        ↓
+Skill tool call #1 → grilling
+  design tree / frontier / facts / shared understanding
+        +
+Skill tool call #2 → domain-modeling
+  terminology / scenarios / code cross-check / durable docs
+        ↓
+stateful alignment in a repo</div>
+
+  <h2>Paper trail</h2>
+  <div class="flow">resolved term
+→ CONTEXT.md，立即写
+
+qualifying hard decision
+→ docs/adr/NNNN-*.md
+
+ordinary decisions
+→ conversation only
+→ 后续在同一会话交给 to-spec</div>
+
+  <h2>路由</h2>
+  <div class="flow">无 working directory / 不写文件
+→ grill-me
+
+有 repo + 单会话可澄清的 fuzzy change
+→ grill-with-docs
+
+工作大到单会话装不下
+→ wayfinder</div>
+
+  <h2>监督失败模式</h2>
+  <div class="card">
+    <p><strong>只加载 grilling：</strong>问题问得很好，但 <code>CONTEXT.md</code>/ADR 从不更新。</p>
+    <p><strong>只做 domain-modeling：</strong>可能记录词和决定，但没有完整 design tree/frontier 对齐。</p>
+    <p><strong>把所有答案写进 CONTEXT.md：</strong>把 glossary 变成 spec，错误。</p>
+    <p><strong>会话结束后清空上下文：</strong>普通 decisions 没有持久化，会丢；应把同一会话继续交给 <code>to-spec</code>。</p>
+  </div>
+
+  <p class="rule"><strong>监督口诀：两个 Skill 都加载；术语即时落盘；ADR 少而精；其他决定留在会话并继续传给 to-spec。</strong></p>
+
+  <h2>Primary sources</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">grill-with-docs/SKILL.md</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/docs/engineering/grill-with-docs.md">grill-with-docs docs</a></p>
+</main>
+</body>
+</html>
