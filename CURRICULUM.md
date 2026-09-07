@@ -28,10 +28,10 @@
 
 ### Stage 1 — 对齐：在实现之前把问题问对
 
-- [ ] `grilling` — **in progress**
+- [x] `grilling` — **mastered**
   - [x] **Lesson 0002：design tree / decision frontier**
   - [x] **Lesson 0003：facts vs decisions**
-  - [ ] **Lesson 0004：shared understanding / exit gate** — **in progress**
+  - [x] **Lesson 0004：shared understanding / exit gate**
 - [ ] `grill-me`
   - user-invoked orchestration
 - [ ] `domain-modeling`
@@ -102,8 +102,9 @@
 ## 当前进度
 
 - 当前：**Stage 1 — Alignment**
-- 已完成：**Lesson 0002 — Grilling：找出 Decision Frontier**
-- 已完成：**Lesson 0003 — Grilling：Facts vs Decisions**
-- 进行中：**Lesson 0004 — Grilling：Shared Understanding 与结束条件**
-- Lesson 0004 learning record：**pending，等待无提示迁移题通过**
-- 下一主题：**grill-me orchestration**
+- 已掌握：**`grilling` primitive**
+- 已完成：**Lesson 0002 — Decision Frontier**
+- 已完成：**Lesson 0003 — Facts vs Decisions**
+- 已完成：**Lesson 0004 — Shared Understanding 与结束条件**
+- Learning record：`learning-records/0004-shared-understanding.md`
+- 下一课：**Lesson 0005 — `grill-me`：user-invoked orchestration**
