@@ -30,7 +30,7 @@
 
 - [ ] `grilling` — **in progress**
   - [x] **Lesson 0002：design tree / decision frontier**
-  - [ ] facts vs decisions
+  - [ ] **Lesson 0003：facts vs decisions** — **in progress**
   - [ ] shared understanding
 - [ ] `grill-me`
   - user-invoked orchestration
@@ -103,5 +103,6 @@
 
 - 当前：**Stage 1 — Alignment**
 - 已完成：**Lesson 0002 — Grilling：找出 Decision Frontier**
-- Learning record：`learning-records/0002-decision-frontier.md`
-- 下一课：**Lesson 0003 — Grilling：Facts vs Decisions**
+- 进行中：**Lesson 0003 — Grilling：Facts vs Decisions**
+- Lesson 0003 learning record：**pending，等待无提示迁移题通过**
+- 下一主题：**shared understanding**
