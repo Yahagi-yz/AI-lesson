@@ -38,11 +38,11 @@
   - [x] **Lesson 0006：ubiquitous language — 模糊/重载术语 → concrete scenario → canonical term**
   - [x] **Lesson 0007：CONTEXT.md vs ADR — two artifacts, two bars**
   - glossary / scenario / edge case / ADR discipline
-- [ ] `grill-with-docs`
-  - [ ] **Lesson 0008：stateful orchestration — grilling + domain-modeling + paper trail** ← current
+- [x] `grill-with-docs` — **mastered**
+  - [x] **Lesson 0008：stateful orchestration — grilling + domain-modeling + paper trail**
   - grilling + domain model + durable docs
 
-**阶段验收**：给出一个真实项目状态，能够判断哪些问题现在能问、哪些必须后置、哪些事实应由 AI 自查。
+**阶段验收**：给出一个真实项目状态，能够判断哪些问题现在能问、哪些必须后置、哪些事实应由 AI 自查，并能在 `grill-me / grill-with-docs` 之间正确路由、监督 domain-modeling 与 durable docs 是否按边界工作。
 
 ### Stage 2 — 把对齐结果变成可执行工作
 
@@ -107,13 +107,13 @@
 - 已掌握：**`grilling` primitive**
 - 已掌握：**`grill-me` user-invoked orchestration**
 - 已掌握：**`domain-modeling`**
+- 已掌握：**`grill-with-docs` stateful orchestration**
 - 已完成：**Lesson 0002 — Decision Frontier**
 - 已完成：**Lesson 0003 — Facts vs Decisions**
 - 已完成：**Lesson 0004 — Shared Understanding 与结束条件**
 - 已完成：**Lesson 0005 — `grill-me`：user-invoked orchestration**
 - 已完成：**Lesson 0006 — `domain-modeling`：ubiquitous language**
 - 已完成：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR**
-- 当前 Lesson：**Lesson 0008 — `grill-with-docs`：stateful orchestration**
-- Latest learning record：`learning-records/0007-context-vs-adr.md`
-- Lesson 0008 learning record：**pending transfer evidence**
-- `grill-with-docs` 整体状态：**in progress**
+- 已完成：**Lesson 0008 — `grill-with-docs`：stateful orchestration**
+- Latest learning record：`learning-records/0008-grill-with-docs-orchestration.md`
+- 下一步：**Stage 1 — Alignment 综合验收**
