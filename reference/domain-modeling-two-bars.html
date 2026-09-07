@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Domain Modeling · Two Write Bars</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Reference</div>
+  <h1>Domain Modeling · Two Write Bars</h1>
+
+  <p class="rule"><strong>“是什么” → CONTEXT.md；“为什么选这个高成本方案”且三 gate 全过 → ADR。</strong></p>
+
+  <h2>CONTEXT.md</h2>
+  <div class="flow">写：项目特有领域概念、简短定义、概念关系、Avoid 同义词
+不写：实现细节、spec、scratch notes、数据库/函数/API 细节</div>
+
+  <h2>ADR</h2>
+  <div class="flow">必须同时满足：
+1. Hard to reverse
+2. Surprising without context
+3. Real trade-off
+
+任一项 = No → Skip ADR</div>
+
+  <h2>快速路由</h2>
+  <div class="flow">Run = Task 的一次执行
+→ CONTEXT.md
+
+核心写模型选择 event sourcing 而非 CRUD，
+有真实替代、迁移昂贵、理由无法从代码直接看出
+→ ADR
+
+失败重试 3 次 / 函数命名 / 临时配置
+→ Neither</div>
+
+  <p class="mini">Primary sources: domain-modeling/SKILL.md + ADR-FORMAT.md.</p>
+</main>
+</body>
+</html>
