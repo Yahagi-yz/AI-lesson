@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference · Skill / Flow Map</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Reference</div>
+  <h1>Skill / Flow 速查</h1>
+  <p class="lead">需要快速判断“我现在该做什么”时，看这一页。</p>
+
+  <p class="rule"><strong>Skill = 一个具体工程能力。<br>Flow = 多个 Skills 组成的整体工程路径。</strong></p>
+
+  <h2>判断顺序</h2>
+  <div class="flow">1. 当前处于什么工程阶段？
+2. 当前缺的是：决策 / 运行证据 / 规格 / 实现 / 诊断 / 审查？
+3. 选择当前阶段对应的 Skill。
+4. 完成后再判断是否进入下一阶段。</div>
+
+  <h2>常见路由提示</h2>
+  <section class="card">
+    <p><strong>需求或设计没对齐</strong> → grilling / grill-with-docs</p>
+    <p><strong>必须跑起来或看见才能回答设计问题</strong> → prototype</p>
+    <p><strong>shared understanding 已形成，要固化规格</strong> → to-spec</p>
+    <p><strong>规格太大，需要拆为可执行工作</strong> → to-tickets</p>
+    <p><strong>大型、多会话工作，连路径都不清楚</strong> → wayfinder</p>
+    <p><strong>开始构建</strong> → implement（内部结合 tdd / code-review 等）</p>
+    <p><strong>已有故障但原因不明</strong> → diagnosing-bugs</p>
+  </section>
+
+  <h2>一句话检查</h2>
+  <p>如果你发现自己在问“哪个 Skill 最厉害？”，改问：</p>
+  <p class="rule"><strong>“当前工程阶段缺的到底是什么？”</strong></p>
+
+  <p class="mini"><a href="../lessons/0001-skill-vs-flow.html">返回 Lesson 0001</a></p>
+</main>
+</body>
+</html>
