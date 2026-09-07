@@ -36,7 +36,7 @@
   - [x] **Lesson 0005：user-invoked orchestration**
 - [ ] `domain-modeling`
   - [x] **Lesson 0006：ubiquitous language — 模糊/重载术语 → concrete scenario → canonical term**
-  - [ ] **Lesson 0007：CONTEXT.md vs ADR — two artifacts, two bars**
+  - [ ] **Lesson 0007：CONTEXT.md vs ADR — two artifacts, two bars** ← current
   - glossary / scenario / edge case / ADR discipline
 - [ ] `grill-with-docs`
   - grilling + domain model + durable docs
@@ -110,6 +110,7 @@
 - 已完成：**Lesson 0004 — Shared Understanding 与结束条件**
 - 已完成：**Lesson 0005 — `grill-me`：user-invoked orchestration**
 - 已完成：**Lesson 0006 — `domain-modeling`：ubiquitous language**
+- 当前 Lesson：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR**
 - Latest learning record：`learning-records/0006-domain-language-boundaries.md`
+- Lesson 0007 learning record：**pending transfer evidence**
 - `domain-modeling` 整体状态：**in progress**
-- 下一课：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR — two artifacts, two bars**
