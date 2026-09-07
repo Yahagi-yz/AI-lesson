@@ -9,3 +9,6 @@
 - GitHub Issue 用于保存每课重要讨论；`learning-records/` 只记录已证明的学习成果，不作为会话日志。
 - 常规教学状态直接更新 `main`；重大 Mission / Curriculum 重构再考虑 PR。
 - Lesson 0001 的原教学执行不完整，但用户已证明理解 Skill 与 Flow，因此保留学习成果并规范化落盘。
+- **每一节正式 Lesson 都必须包含交互式练习与即时反馈。** 除仓库中的 canonical `lessons/*.html` 外，在当前 ChatGPT 会话中应额外生成一个可直接打开的**单文件 HTML 交互预览**（通常放在临时目录 `/mnt/data/`），并把可点击链接发给用户；不能因为换新窗口而省略这一步。
+- 当前会话预览只是便于立即学习，仓库中的模块化 Lesson（复用 `assets/`）仍然是 source of truth。
+- 每节课结束前应保留一个**无提示迁移题**在对话中验收；网页练习做完不等于 mastered，只有用户在新场景中证明会用后才写 learning record。
