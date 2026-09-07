@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0008 · grill-with-docs</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0008 · <code>grill-with-docs</code>：Stateful Alignment Orchestration</h1>
+  <p class="lead">单一目标：监督 <code>grill-with-docs</code> 是否真的同时运行了 <code>grilling</code> 与 <code>domain-modeling</code>，并正确理解这场 stateful session 的 paper trail。</p>
+
+  <nav>
+    <a href="../reference/grill-with-docs-orchestration-map.html">速查：Orchestration Map</a>
+    <a href="0007-context-vs-adr.html">上一课</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>你能判断何时该由用户主动调用 <code>/grill-with-docs</code>，解释它为何必须同时加载两个 Skills，并发现“只 Grill 不写 docs”“把所有决定都写 docs”等 orchestration 错误。</p>
+  </section>
+
+  <h2>1. 它不是第三套算法，而是两个已掌握能力的组合</h2>
+  <p>官方 <code>grill-with-docs/SKILL.md</code> 的核心只有一句：调用 Skill tool 两次，分别加载 <code>grilling</code> 和 <code>domain-modeling</code>。</p>
+
+  <div class="flow">用户主动 /grill-with-docs
+        ↓
+Skill call #1 → grilling
+  design tree / frontier / facts / shared understanding
+        +
+Skill call #2 → domain-modeling
+  vocabulary / scenarios / code cross-check / docs
+        ↓
+stateful alignment against a repo</div>
+
+  <p class="rule"><strong><code>grill-with-docs</code> = interview engine + domain model discipline + real repo state。</strong></p>
+
+  <h2>2. 为什么它和 grill-me 不一样？</h2>
+  <div class="flow">无 repo / 不需要写文件
+→ /grill-me
+→ grilling only
+→ stateless
+
+有 repo + change 仍模糊 + 单会话能澄清
+→ /grill-with-docs
+→ grilling + domain-modeling
+→ stateful
+
+工作大到单会话装不下
+→ wayfinder</div>
+
+  <p>因此，<code>grill-with-docs</code> 也是 user-invoked：是否进入这场会修改真实仓库文档的对齐过程，由用户决定。</p>
+
+  <h2>3. Stateful 不等于“把所有答案都写文件”</h2>
+  <p>一场 session 的结果有三类，而且只有前两类真正落盘：</p>
+
+  <div class="flow">Resolved term
+→ CONTEXT.md
+→ 术语一确定就立即写
+
+Hard decision that passes all 3 ADR gates
+→ docs/adr/NNNN-*.md
+
+Everything else decided
+→ conversation only
+→ 不塞进 CONTEXT.md，也不滥写 ADR</div>
+
+  <p>这正是为什么 session 结束后不能随手清空上下文：大量普通 decisions 仍然只存在当前 conversation 中。</p>
+
+  <h2>4. 正常下一步：沿用同一个 conversation</h2>
+  <div class="flow">grill-with-docs
+→ shared understanding confirmed
+→ CONTEXT.md / ADR 已按规则增量更新
+→ 普通 decisions 仍在 conversation
+→ 同一 conversation → to-spec</div>
+
+  <p class="rule"><strong>Durable docs 不是完整 spec。不要把“写了 CONTEXT.md/ADR”误解为“所有需求已经持久化”。</strong></p>
+
+  <h2>5. 最值得监督的 partial-loading failure</h2>
+  <p>官方文档特别指出：常见失败不是完全没运行，而是只加载了一半。</p>
+
+  <div class="flow">只加载 grilling
+→ Round/frontier 很漂亮
+→ 但术语确定后 CONTEXT.md 一直不变
+→ orchestration failure
+
+只执行 domain-modeling
+→ 有 glossary / ADR 动作
+→ 但没有完整 design tree/frontier inquiry
+→ orchestration failure</div>
+
+  <p>因此监督 <code>grill-with-docs</code> 时，不要只看“它有没有问很多问题”，也不要只看“它有没有写文件”；要看<strong>两个 primitive 是否同时在工作</strong>。</p>
+
+  <h2>6. Retrieval practice</h2>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。官方入口必须分别加载 grilling 与 domain-modeling；前者负责 inquiry，后者负责领域模型与 durable docs。"
+    data-wrong-feedback="回到调用链：grill-with-docs 自己很薄，真正工作来自两个 Skills。">
+    <strong>Q1. /grill-with-docs 正确启动后，底层应该加载什么？</strong>
+    <div class="choices">
+      <button data-choice="a">只加载 grilling</button>
+      <button data-choice="b">加载两个 Skills</button>
+      <button data-choice="c">只加载 domain-modeling</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。有 repo、变更仍模糊、希望在一场 session 中对齐并把领域词/关键架构决定增量落盘，是 grill-with-docs 的典型场景。"
+    data-wrong-feedback="比较 grill-me / grill-with-docs / wayfinder 的工作目录和 session 规模边界。">
+    <strong>Q2. 哪个场景最适合 /grill-with-docs？</strong>
+    <div class="choices">
+      <button data-choice="a">仓库内单会话澄清</button>
+      <button data-choice="b">无仓库纯想法澄清</button>
+      <button data-choice="c">跨多会话大型项目</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="c"
+    data-correct-feedback="正确。普通 decisions 多数不会进入 CONTEXT.md 或 ADR，它们仍只存在 conversation 中。"
+    data-wrong-feedback="Stateful 只意味着符合门槛的 artifacts 会落盘，不意味着所有答案自动持久化。">
+    <strong>Q3. “失败后重试 3 次”已经在 grilling 中确认，但不属于 glossary，也不过 ADR gate。它默认去哪？</strong>
+    <div class="choices">
+      <button data-choice="a">写进 CONTEXT.md</button>
+      <button data-choice="b">强制创建 ADR</button>
+      <button data-choice="c">留在当前会话</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。Interview 正常但 paper trail 完全没有，最应怀疑 domain-modeling 没有加载或写入半边失效。"
+    data-wrong-feedback="如果 grilling 正常，frontier/round 会正常；缺失的是哪一半？">
+    <strong>Q4. 问题轮次和 frontier 都正常，但术语已经确定，CONTEXT.md 仍从未更新。最应怀疑？</strong>
+    <div class="choices">
+      <button data-choice="a">grilling 未加载</button>
+      <button data-choice="b">domain-modeling 未加载</button>
+      <button data-choice="c">用户没有权限决策</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。普通 decisions 仍依赖当前 context window，因此应把同一 conversation 继续交给 to-spec。"
+    data-wrong-feedback="CONTEXT.md/ADR 并不是完整规格；清空会话可能丢掉大量已确认但未落盘的普通 decisions。">
+    <strong>Q5. grilling 结束并确认 shared understanding 后，正常进入 to-spec 时应该？</strong>
+    <div class="choices">
+      <button data-choice="a">沿用当前会话</button>
+      <button data-choice="b">清空上下文重开</button>
+      <button data-choice="c">只读取 CONTEXT.md</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <h2>7. 一句话记忆</h2>
+  <p class="rule"><strong><code>/grill-with-docs</code> = 用户主动启动的 stateful front door：<code>grilling</code> 把问题问清，<code>domain-modeling</code> 把该落盘的语言和少数硬决策即时落盘；其余共识继续由同一会话带给 <code>to-spec</code>。</strong></p>
+
+  <h2>Primary sources</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/grill-with-docs/SKILL.md">grill-with-docs/SKILL.md</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/docs/engineering/grill-with-docs.md">grill-with-docs docs</a></p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果你遇到真实 Codex session，不确定它是正常没有 artifact，还是漏加载了 domain-modeling，把问题轮次、术语决议和仓库文件变化一起带回来判断。</p>
+  </section>
+
+  <p class="mini">完成网页练习后，回到对话做一次无提示迁移题。通过前不会创建 Lesson 0008 learning record，也不会把 grill-with-docs 标为 mastered。</p>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
