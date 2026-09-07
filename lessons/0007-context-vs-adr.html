@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 0007 · CONTEXT.md vs ADR</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">AI Lesson · Stage 1</div>
+  <h1>Lesson 0007 · <code>CONTEXT.md</code> vs ADR：Two Artifacts, Two Bars</h1>
+  <p class="lead">单一目标：面对一个已经明确的陈述，判断它应该写进领域 glossary、值得记录为 ADR，还是根本不该进入这两类持久化文档。</p>
+
+  <nav>
+    <a href="../reference/domain-modeling-two-bars.html">速查：Two Write Bars</a>
+    <a href="0006-domain-modeling-ubiquitous-language.html">上一课</a>
+    <a href="../CURRICULUM.md">课程地图</a>
+  </nav>
+
+  <section class="card">
+    <strong>本课完成标志</strong>
+    <p>你能把“概念是什么”路由到 <code>CONTEXT.md</code>；把真正重要且需要保留理由的决策路由到 ADR；把普通实现细节、易逆转策略和显然选择挡在两者之外。</p>
+  </section>
+
+  <h2>1. 同一个 domain-modeling，两个不同容器</h2>
+  <div class="flow">一个陈述已经澄清
+        ↓
+它在定义领域概念 / 领域关系？
+ ├─ Yes → CONTEXT.md
+ └─ No
+        ↓
+它是一个“值得未来人记住为什么”的决策？
+ ├─ 三个 ADR gate 全通过 → ADR
+ └─ 任一 gate 不通过 → 两边都不写</div>
+
+  <p class="rule"><strong><code>CONTEXT.md</code> 保存语言；ADR 保存高价值决策的“为什么”。不要把两者都变成项目流水账。</strong></p>
+
+  <h2>2. CONTEXT.md 的 bar：这是项目领域里的“词”吗？</h2>
+  <p>Lesson 0006 已经证明：<code>CONTEXT.md</code> 是 glossary。它保存项目特有领域概念的定义与关系，而不是数据库、函数、API、重试次数或开发计划。</p>
+
+  <div class="flow">适合 CONTEXT.md
+
+Task:
+A unit of work that may have multiple Runs.
+
+Run:
+One concrete execution attempt of a Task.</div>
+
+  <h2>3. ADR 的 bar 更高：三个 gate 必须全部通过</h2>
+  <div class="flow">Gate 1 — Hard to reverse?
+改变它的代价是否显著？
+        ↓ yes
+Gate 2 — Surprising without context?
+未来的人看到代码，会不会问“为什么这么做？”
+        ↓ yes
+Gate 3 — Real trade-off?
+是否真的比较过可行替代方案，并因具体理由做了取舍？
+        ↓ yes
+      ADR
+
+任何一个 no → Skip ADR</div>
+
+  <p>ADR 不是“所有 decision 的日志”。官方甚至强调应当 <strong>offer sparingly</strong>：三项缺一项就跳过。</p>
+
+  <h2>4. 三种内容不要混</h2>
+  <div class="flow">领域定义
+“Run 是 Task 的一次具体执行。”
+→ CONTEXT.md
+
+高价值决策
+“Ordering 与 Billing 用 domain events，而不是同步 HTTP，
+因为要隔离故障并允许独立扩缩；迁移通信模式代价很大。”
+→ ADR（若三个 gate 均成立）
+
+普通实现/策略
+“失败自动重试 3 次。”
+“函数叫 run_task()。”
+→ 通常 Neither：去 spec / config / code / runbook 等合适位置</div>
+
+  <h2>5. 为什么“是 decision”仍然可能不写 ADR？</h2>
+  <p>因为 ADR 的目的不是证明“我们讨论过”，而是防止未来的人在缺少上下文时误解或重新打开一个代价高的取舍。</p>
+
+  <div class="flow">决定：按钮文案从“Run”改成“Execute”
+可轻易改回 → Gate 1 fail → 不写 ADR
+
+决定：沿用仓库已有 JSON 库
+没有真实替代取舍 → Gate 3 fail → 不写 ADR
+
+决定：核心写模型采用 event sourcing 而非 CRUD
+昂贵迁移 + 未来会疑惑 + 有真实替代方案
+→ 可能值得 ADR</div>
+
+  <p class="rule"><strong>“这是一个决定” ≠ “这是一个 ADR”。ADR 是经过三道 gate 的少数决定。</strong></p>
+
+  <h2>6. Retrieval practice</h2>
+  <p class="mini">每题都在三类里选：术语表 / 决策档 / 都不写。</p>
+
+  <section class="quiz" data-quiz-answer="a"
+    data-correct-feedback="正确。它定义的是项目领域概念及关系，属于 glossary。"
+    data-wrong-feedback="问：这句话主要是在定义‘一个东西是什么’，还是在记录一个取舍的理由？">
+    <strong>Q1. “Run 是 Task 的一次具体执行；一个 Task 可以有多个 Runs。”</strong>
+    <div class="choices">
+      <button data-choice="a">术语表</button>
+      <button data-choice="b">决策档</button>
+      <button data-choice="c">都不写</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。这里是高成本、非显然、经过真实替代方案取舍的架构决定，符合 ADR 的三个 gate。"
+    data-wrong-feedback="检查 ADR 三个 gate：难逆转？未来会疑惑？有真实 trade-off？">
+    <strong>Q2. “核心订单写模型采用 event sourcing 而非 CRUD；团队比较过两者，因为审计与历史重放要求接受了更高复杂度，未来迁移成本很高。”</strong>
+    <div class="choices">
+      <button data-choice="a">术语表</button>
+      <button data-choice="b">决策档</button>
+      <button data-choice="c">都不写</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="c"
+    data-correct-feedback="正确。它是策略/规格细节；不是领域术语，而且很容易改，不满足 ADR bar。"
+    data-wrong-feedback="不要因为它是一个‘决定’就自动写 ADR；先检查是否难逆转。">
+    <strong>Q3. “Worker 失败后最多自动重试 3 次。”</strong>
+    <div class="choices">
+      <button data-choice="a">术语表</button>
+      <button data-choice="b">决策档</button>
+      <button data-choice="c">都不写</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="c"
+    data-correct-feedback="正确。没有真实替代方案与取舍，只是沿用显然的既有选择；ADR gate 3 不通过。"
+    data-wrong-feedback="它可能是技术决定，但 ADR 还要求真实 trade-off；‘顺手沿用’通常不够。">
+    <strong>Q4. “继续使用仓库已经安装的 JSON parser，因为它现成可用；没有讨论其他方案。”</strong>
+    <div class="choices">
+      <button data-choice="a">术语表</button>
+      <button data-choice="b">决策档</button>
+      <button data-choice="c">都不写</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <section class="quiz" data-quiz-answer="b"
+    data-correct-feedback="正确。系统边界的所有权决定通常难逆转；如果替代方案真实存在且未来读者无法从代码看出原因，它值得 ADR。"
+    data-wrong-feedback="这里不是在定义 Customer 是什么，而是在记录谁拥有 Customer 数据这一边界取舍及理由。">
+    <strong>Q5. “Customer 数据只由 Customer context 拥有；其他 context 只能保存 CustomerId。我们放弃共享表以避免跨域耦合，迁移这个边界代价很大。”</strong>
+    <div class="choices">
+      <button data-choice="a">术语表</button>
+      <button data-choice="b">决策档</button>
+      <button data-choice="c">都不写</button>
+    </div>
+    <div class="feedback"></div>
+  </section>
+
+  <h2>7. 一句话记忆</h2>
+  <p class="rule"><strong>“是什么” → CONTEXT.md；“为什么选这个高成本方案”且三 gate 全过 → ADR；其余不要硬塞进这两个文件。</strong></p>
+
+  <h2>Primary sources</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md">domain-modeling/SKILL.md</a></p>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/ADR-FORMAT.md">ADR-FORMAT.md</a></p>
+
+  <section class="card">
+    <strong>问老师</strong>
+    <p>如果某个真实项目决定你拿不准是不是 ADR，把“决定是什么、替代方案是什么、改回去多贵、未来的人能否看懂原因”四项带回来判断。</p>
+  </section>
+
+  <p class="mini">完成网页练习后，回到对话做一次无提示迁移题。通过前不写 Lesson 0007 learning record，也不把整个 domain-modeling 标为 mastered。</p>
+</main>
+<script src="../assets/quiz.js"></script>
+</body>
+</html>
