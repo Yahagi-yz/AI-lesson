@@ -41,6 +41,7 @@
 - [x] `grill-with-docs` — **mastered**
   - [x] **Lesson 0008：stateful orchestration — grilling + domain-modeling + paper trail**
   - grilling + domain model + durable docs
+- [ ] **Lesson 0009 — Stage 1 Alignment 综合验收**
 
 **阶段验收**：给出一个真实项目状态，能够判断哪些问题现在能问、哪些必须后置、哪些事实应由 AI 自查，并能在 `grill-me / grill-with-docs` 之间正确路由、监督 domain-modeling 与 durable docs 是否按边界工作。
 
@@ -103,7 +104,7 @@
 
 ## 当前进度
 
-- 当前：**Stage 1 — Alignment**
+- 当前：**Stage 1 — Alignment 综合验收进行中**
 - 已掌握：**`grilling` primitive**
 - 已掌握：**`grill-me` user-invoked orchestration**
 - 已掌握：**`domain-modeling`**
@@ -115,5 +116,6 @@
 - 已完成：**Lesson 0006 — `domain-modeling`：ubiquitous language**
 - 已完成：**Lesson 0007 — `domain-modeling`：CONTEXT.md vs ADR**
 - 已完成：**Lesson 0008 — `grill-with-docs`：stateful orchestration**
+- 进行中：**Lesson 0009 — Stage 1 Alignment 综合验收**
 - Latest learning record：`learning-records/0008-grill-with-docs-orchestration.md`
-- 下一步：**Stage 1 — Alignment 综合验收**
+- 验收通过前：**不创建 Lesson 0009 learning record，不进入 Stage 2**
