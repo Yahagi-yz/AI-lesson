@@ -28,9 +28,8 @@
 
 ### Stage 1 — 对齐：在实现之前把问题问对
 
-- [ ] `grilling`
-  - design tree
-  - decision frontier
+- [ ] `grilling` — **in progress**
+  - **Lesson 0002：design tree / decision frontier**
   - facts vs decisions
   - shared understanding
 - [ ] `grill-me`
@@ -102,5 +101,7 @@
 
 ## 当前进度
 
-- 当前：**Stage 0 完成**
-- 下一课：**Lesson 0002 — Grilling 的 design tree 与 decision frontier**
+- 当前：**Stage 1 — Alignment**
+- 进行中：**Lesson 0002 — Grilling：找出 Decision Frontier**
+- 讨论：**GitHub Issue #2**
+- Learning record：**pending，等待无提示迁移题通过**
