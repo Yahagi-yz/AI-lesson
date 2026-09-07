@@ -26,6 +26,9 @@
 - [`CONTEXT.md` format](https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/CONTEXT-FORMAT.md)
   glossary 的 canonical 格式与内容边界。Use for: 判断领域定义、关系、Avoid 同义词与 implementation detail 的边界。
 
+- [`ADR format`](https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/ADR-FORMAT.md)
+  ADR 的 canonical 格式与三项写入门槛：hard to reverse、surprising without context、real trade-off。Use for: Lesson 0007 判断一个 decision 是否真正值得持久化为 ADR。
+
 - [`ask-matt` — SKILL.md](https://github.com/mattpocock/skills/blob/main/skills/engineering/ask-matt/SKILL.md)
   官方 Skill / Flow 路由器。Use for: 判断一个真实任务应走哪条工程路径。
 
