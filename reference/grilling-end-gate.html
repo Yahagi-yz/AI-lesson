@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reference · Grilling Exit Gate</title>
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">Reference · Grilling</div>
+  <h1>Grilling Exit Gate</h1>
+  <p class="lead">什么时候可以结束 grilling？</p>
+
+  <div class="flow">1. 还有未决 decision？
+   yes → 继续 grilling
+   no
+    ↓
+2. 是否存在静默假设 / 未访问分支？
+   yes → 重新打开 design tree
+   no
+    ↓
+3. 总结 shared understanding
+    ↓
+4. 用户明确确认？
+   no / 修正 → 重算 design tree
+   yes → grilling 结束</div>
+
+  <p class="rule"><strong>frontier = ∅ 是必要条件，不是行动授权。</strong></p>
+
+  <h2>常见错误</h2>
+  <p><strong>错误 1：</strong>“问题问完了，所以我开始实现。”</p>
+  <p><strong>纠正：</strong>先让用户确认 shared understanding。</p>
+
+  <p><strong>错误 2：</strong>摘要阶段用户提出修正，但 AI 只修改文案，不重新计算依赖。</p>
+  <p><strong>纠正：</strong>修正可能重新打开 design tree，必须重算 frontier。</p>
+
+  <p><strong>错误 3：</strong>为了尽快结束，把未问到的约束当默认值。</p>
+  <p><strong>纠正：</strong>frontier 真正为空意味着没有留下静默假设。</p>
+
+  <h2>Primary source</h2>
+  <p><a href="https://github.com/mattpocock/skills/blob/main/skills/productivity/grilling/SKILL.md">grilling / SKILL.md</a></p>
+</main>
+</body>
+</html>
